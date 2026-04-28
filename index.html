@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Kale 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blush: #f7c5c5;
+    --rose: #e07a9a;
+    --deep: #8b1a4a;
+    --gold: #d4a84b;
+    --cream: #fff8f0;
+    --text: #3a1a2a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Lato', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* FLOATING HEARTS */
+  .hearts-bg {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    overflow: hidden;
+  }
+  .heart-particle {
+    position: absolute;
+    bottom: -60px;
+    opacity: 0;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+    10%  { opacity: 0.65; }
+    90%  { opacity: 0.35; }
+    100% { transform: translateY(-110vh) rotate(25deg) scale(1.2); opacity: 0; }
+  }
+
+  /* HERO */
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background: radial-gradient(ellipse at 60% 40%, #fde8ef 0%, #fff8f0 65%);
+  }
+
+  .envelope-icon {
+    font-size: 4rem;
+    animation: pulse 2.4s ease-in-out infinite;
+    margin-bottom: 1.2rem;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50%      { transform: scale(1.13); }
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    color: var(--deep);
+    line-height: 1.2;
+    animation: fadeDown 1s ease both;
+  }
+  .hero h1 em { color: var(--rose); font-style: italic; }
+
+  .hero .subtitle {
+    margin-top: 1.1rem;
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: #7a4560;
+    line-height: 1.75;
+    max-width: 440px;
+    animation: fadeDown 1.3s ease both;
+  }
+
+  .scroll-hint {
+    margin-top: 3rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rose);
+    animation: bounce 2s ease-in-out infinite;
+    opacity: 0.75;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(9px); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  .section {
+    position: relative; z-index: 1;
+    max-width: 900px; margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--deep);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .section-label em { color: var(--rose); font-style: italic; }
+
+  .divider {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    margin: 0.6rem auto 2.4rem;
+    border-radius: 2px;
+  }
+
+  /* PHOTO GRID */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .photo-slot {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #fde8ef, #ffe9c0);
+    border: 2px dashed var(--rose);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    aspect-ratio: 1 / 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .photo-slot:hover { transform: scale(1.03); box-shadow: 0 8px 30px rgba(224,122,154,0.3); }
+
+  .photo-slot.kale-slot {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+
+  .photo-slot img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+
+  .upload-placeholder { pointer-events: none; padding: 1rem; }
+  .upload-placeholder .icon { font-size: 2.5rem; margin-bottom: 0.4rem; }
+  .upload-placeholder p { font-size: 0.82rem; color: var(--rose); line-height: 1.5; }
+  .upload-placeholder strong { font-size: 0.95rem; color: var(--deep); display: block; margin-bottom: 0.2rem; }
+
+  .photo-slot input[type=file] {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    opacity: 0; cursor: pointer;
+  }
+
+  /* LETTER */
+  .letter-wrap {
+    background: white;
+    border-radius: 24px;
+    padding: 2.8rem 2.2rem;
+    box-shadow: 0 10px 50px rgba(139,26,74,0.08);
+    border-left: 5px solid var(--rose);
+    position: relative;
+    overflow: hidden;
+  }
+  .letter-wrap::before {
+    content: '\201C';
+    position: absolute;
+    top: -10px; left: 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 10rem;
+    color: var(--blush);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .letter-wrap p {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: #4a2030;
+    position: relative; z-index: 1;
+    margin-bottom: 1.1rem;
+  }
+  .letter-wrap p em { color: var(--rose); font-style: italic; }
+  .letter-wrap .sign {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--rose);
+    text-align: right;
+    margin-top: 1.8rem;
+  }
+
+  /* PROMISES */
+  .promises { display: flex; flex-direction: column; gap: 1rem; }
+
+  .promise-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: white;
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    box-shadow: 0 4px 20px rgba(139,26,74,0.06);
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
+  }
+  .promise-card.visible { opacity: 1; transform: translateX(0); }
+  .promise-card:hover { box-shadow: 0 8px 30px rgba(224,122,154,0.2); }
+  .promise-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .promise-text strong { display: block; font-size: 1rem; color: var(--deep); margin-bottom: 0.25rem; }
+  .promise-text span { font-size: 0.9rem; color: #7a4560; line-height: 1.65; }
+
+  /* FINALE */
+  .finale {
+    min-height: 65vh;
+    background: linear-gradient(160deg, #8b1a4a 0%, #c94e78 50%, #e8a0b8 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative; z-index: 1;
+    overflow: hidden;
+  }
+  .finale::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 10 C24 4 14 4 14 14 C14 24 30 36 30 36 C30 36 46 24 46 14 C46 4 36 4 30 10Z' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E") repeat;
+    pointer-events: none;
+  }
+  .finale h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: white;
+    line-height: 1.25;
+    margin-bottom: 1.2rem;
+  }
+  .finale p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.88);
+    max-width: 500px;
+    line-height: 1.9;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+  .sorry-btn {
+    display: inline-block;
+    background: white;
+    color: var(--deep);
+    border: none;
+    padding: 1rem 2.8rem;
+    border-radius: 50px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.2);
+  }
+  .sorry-btn:hover { transform: scale(1.06); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+
+  #confettiBurst {
+    margin-top: 1.5rem;
+    font-size: 2.5rem;
+    display: none;
+    animation: burst 1s ease forwards;
+    letter-spacing: 0.2rem;
+  }
+  @keyframes burst {
+    0%   { opacity: 0; transform: scale(0); }
+    60%  { opacity: 1; transform: scale(1.5); }
+    100% { opacity: 0.95; transform: scale(1); }
+  }
+
+  @media (max-width: 500px) {
+    .photo-grid { grid-template-columns: 1fr; }
+    .photo-slot.kale-slot { grid-column: 1; }
+    .letter-wrap { padding: 2rem 1.2rem; }
+    .letter-wrap::before { font-size: 7rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hearts-bg" id="heartsContainer"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="envelope-icon">💌</div>
+  <h1>I'm so sorry,<br><em>Kale.</em></h1>
+  <p class="subtitle">I know I messed up. This is me trying to say it properly — because you deserve that much.</p>
+  <p class="scroll-hint">↓ keep scrolling ↓</p>
+</section>
+
+<!-- PHOTOS -->
+<div class="section">
+  <h2 class="section-label">Us, in <em>pictures</em></h2>
+  <div class="divider"></div>
+  <div class="photo-grid">
+
+    <div class="photo-slot kale-slot" id="slot0">
+      <input type="file" id="file0" accept="image/*" onchange="loadPhoto(event,0)">
+      <div class="upload-placeholder">
+        <div class="icon">🌸</div>
+        <strong>My Kale 💕</strong>
+        <p>Click to upload her photo</p>
+      </div>
+    </div>
+
+    <div class="photo-slot" id="slot1">
+      <input type="file" id="file1" accept="image/*" onchange="loadPhoto(event,1)">
+      <div class="upload-placeholder">
+        <div class="icon">📸</div>
+        <strong>Us together</strong>
+        <p>Memory 1</p>
+      </div>
+    </div>
+
+    <div class="photo-slot" id="slot2">
+      <input type="file" id="file2" accept="image/*" onchange="loadPhoto(event,2)">
+      <div class="upload-placeholder">
+        <div class="icon">📸</div>
+        <strong>Us together</strong>
+        <p>Memory 2</p>
+      </div>
+    </div>
+
+    <div class="photo-slot" id="slot3">
+      <input type="file" id="file3" accept="image/*" onchange="loadPhoto(event,3)">
+      <div class="upload-placeholder">
+        <div class="icon">📸</div>
+        <strong>Us together</strong>
+        <p>Memory 3</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LETTER -->
+<div class="section" style="padding-top: 0;">
+  <h2 class="section-label">A letter from my <em>heart</em></h2>
+  <div class="divider"></div>
+  <div class="letter-wrap">
+    <p>Hey Kale,</p>
+    <p>
+      When you asked me for a screenshare, I know what that meant. It wasn't just a random request — it was you, across the distance, wanting to feel close to me. Wanting to see my face, be in the same space, even if just through a screen. And I treated it like it was nothing. Like you were messing around. That was so wrong of me.
+    </p>
+    <p>
+      And then I just... got busy. Didn't follow up, didn't check on you. Left you there wondering what happened, worrying, spiraling — until it got bad enough to cause a panic attack. <em>That broke my heart when I found out.</em> You went through that because of me, and I hate that.
+    </p>
+    <p>
+      Long distance is already hard enough. Every call, every little moment we share matters so much more because of it. You weren't asking for a lot — you just wanted me. And I wasn't there. I'm genuinely, deeply sorry for that.
+    </p>
+    <p>
+      You mean everything to me. No distance changes that. But I need to show up better — and I will. I promise.
+    </p>
+    <div class="sign">Yours, always 💕</div>
+  </div>
+</div>
+
+<!-- PROMISES -->
+<div class="section" style="padding-top: 0;">
+  <h2 class="section-label">Things I <em>promise</em> you</h2>
+  <div class="divider"></div>
+  <div class="promises">
+
+    <div class="promise-card">
+      <div class="promise-icon">📞</div>
+      <div class="promise-text">
+        <strong>I'll always show up</strong>
+        <span>When you reach out, I'll be there. No more brushing things off or going quiet. If you're trying to reach me, that matters — full stop.</span>
+      </div>
+    </div>
+
+    <div class="promise-card">
+      <div class="promise-icon">🖥️</div>
+      <div class="promise-text">
+        <strong>Screenshare whenever you need</strong>
+        <span>You should never have to ask twice. If it makes you feel less alone, less far away — I'm on it. Always.</span>
+      </div>
+    </div>
+
+    <div class="promise-card">
+      <div class="promise-icon">🫀</div>
+      <div class="promise-text">
+        <strong>Your feelings come first</strong>
+        <span>I won't let my distractions become your anxiety. If I need to step away, I'll tell you — I won't just disappear and leave you guessing.</span>
+      </div>
+    </div>
+
+    <div class="promise-card">
+      <div class="promise-icon">🌙</div>
+      <div class="promise-text">
+        <strong>I will never be the reason you panic again</strong>
+        <span>I know how hard panic attacks are. I should be your safe place — not the source of your stress. That changes now.</span>
+      </div>
+    </div>
+
+    <div class="promise-card">
+      <div class="promise-icon">💌</div>
+      <div class="promise-text">
+        <strong>I'll keep choosing you, every single day</strong>
+        <span>Long distance only works when both people are all in. I am. You're not just my girlfriend — you're my person.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FINALE -->
+<section class="finale">
+  <h2>Can you forgive me,<br>Kale? 🌹</h2>
+  <p>
+    You're the most important person in my life — and I acted like you weren't that day. I hate that. I love you so much, and I'm going to spend every day making sure you feel that, distance or not.
+  </p>
+  <button class="sorry-btn" onclick="sorryClick()">I'm truly sorry, Kale 💕</button>
+  <div id="confettiBurst">🌸🎉💕🌹✨💗</div>
+</section>
+
+<script>
+  // Floating hearts
+  const emojis = ['❤️','💕','🌹','💗','💖','🌸','💓','🥀'];
+  const container = document.getElementById('heartsContainer');
+  for (let i = 0; i < 24; i++) {
+    const h = document.createElement('div');
+    h.className = 'heart-particle';
+    h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.fontSize = (0.8 + Math.random() * 1.4) + 'rem';
+    const dur = 7 + Math.random() * 10;
+    h.style.animationDuration = dur + 's';
+    h.style.animationDelay = -(Math.random() * dur) + 's';
+    container.appendChild(h);
+  }
+
+  // Photo upload
+  function loadPhoto(e, idx) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const slot = document.getElementById('slot' + idx);
+      let img = slot.querySelector('img');
+      if (!img) { img = document.createElement('img'); slot.insertBefore(img, slot.firstChild); }
+      img.src = ev.target.result;
+      const ph = slot.querySelector('.upload-placeholder');
+      if (ph) ph.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Scroll reveal
+  const cards = document.querySelectorAll('.promise-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 130);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => observer.observe(c));
+
+  // Sorry button
+  function sorryClick() {
+    const burst = document.getElementById('confettiBurst');
+    burst.style.display = 'block';
+    setTimeout(() => { burst.style.display = 'none'; }, 2200);
+  }
+</script>
+</body>
+</html>
